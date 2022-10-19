@@ -1,10 +1,12 @@
 import 'package:drugs/models/drugmodels/drug_model.dart';
+import 'package:drugs/screens/cart_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class Drug_Info_Page extends StatefulWidget {
   DrugsModel getResult;
+  Set pharmasy = {};
   Drug_Info_Page({Key? key, required this.getResult}) : super(key: key);
 
   @override
@@ -53,9 +55,29 @@ class _Drug_Info_PageState extends State<Drug_Info_Page> {
               style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 16),
-            Text(
-              "Цена: ${widget.getResult.price ?? ''} сум",
-              style: const TextStyle(fontSize: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Цена: ${widget.getResult.price ?? ''} сум",
+                  style: const TextStyle(fontSize: 16),
+                ),
+                InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => CartPage(
+                            getResult: widget.getResult,
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      '+ Добавить в корзину',
+                      style: TextStyle(color: Colors.blue),
+                    ))
+              ],
             ),
             const SizedBox(height: 16),
             Text(

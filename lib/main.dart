@@ -1,3 +1,4 @@
+import 'package:drugs/screens/cart_page.dart';
 import 'package:drugs/screens/splash_page.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:drugs/screens/cart_page.dart';
 import 'package:drugs/screens/drug_info.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -74,7 +75,9 @@ class _Home_PageState extends State<Home_Page> {
                 scrollDirection: Axis.vertical,
                 itemCount: drug?.length ?? 0,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: 0.8, crossAxisCount: 2),
+                  childAspectRatio: 0.8,
+                  crossAxisCount: 2,
+                ),
                 itemBuilder: (context, index) {
                   return ValyutaWidget(drug?[index]);
                 },
@@ -132,7 +135,8 @@ class _Home_PageState extends State<Home_Page> {
                 const SizedBox(height: 8),
                 Text(
                   drug?.name ?? '',
-                  style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 8),
                 Row(
