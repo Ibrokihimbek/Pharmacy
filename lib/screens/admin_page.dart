@@ -27,7 +27,12 @@ class _AdminPageState extends State<AdminPage> {
           key: formKey,
           child: Column(
             children: [
-              const SizedBox(height: 200),
+              const SizedBox(height: 70),
+              const Text(
+                'Admin Page',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(height: 120),
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: TextFormField(
@@ -96,16 +101,15 @@ class _AdminPageState extends State<AdminPage> {
                   width: 150,
                   height: 50,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    gradient: const LinearGradient(colors: [
-                      Colors.blue,
-                      Colors.white,
-                    ])
-                  ),
+                      borderRadius: BorderRadius.circular(15),
+                      gradient: const LinearGradient(colors: [
+                        Color.fromARGB(255, 173, 33, 243),
+                        Color.fromARGB(255, 207, 179, 236),
+                      ])),
                   child: const Center(
                     child: Text(
                       "Save",
-                      style: TextStyle(fontSize: 18,color: Colors.white),
+                      style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
                 ),
@@ -134,7 +138,7 @@ class _AdminPageState extends State<AdminPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Info'),
+            title: const Text('Info'),
             content: Text(response.body.toString()),
           );
         },
