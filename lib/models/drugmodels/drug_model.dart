@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // part 'drug_model.g.dart';
@@ -23,7 +24,7 @@ class DrugsModel {
   num? quantity;
 
   DrugsModel({
-    required this.id,
+    this.id,
     required this.name,
     required this.description,
     required this.imageUrl,
@@ -35,6 +36,17 @@ class DrugsModel {
   //     _$DrugsModelFromJson(json);
 
   // Map<String, dynamic> toJson() => _$DrugsModelToJson(this);
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    // data['id'] = this.id;
+    data['name'] = this.name;
+    data['description'] = this.description;
+    data['imageUrl'] = this.imageUrl;
+    data['price'] = this.price;
+    data['quantity'] = this.quantity;
+    return data;
+  }
 
   factory DrugsModel.fromjson(Map<String, dynamic> jsonData) {
     int id = jsonData['id'] ?? 0;

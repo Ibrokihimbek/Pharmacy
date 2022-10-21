@@ -104,73 +104,169 @@ class _Home_PageState extends State<Home_Page> {
             ),
           );
         },
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 5,
-                  spreadRadius: 2)
-            ],
+        child: Dismissible(
+          behavior: HitTestBehavior.deferToChild,
+          key: UniqueKey(),
+          direction: DismissDirection.startToEnd,
+          background: Container(
+            color: Colors.red,
+            child: const Center(
+              child: Icon(
+                Icons.delete,
+                color: Colors.white,
+                size: 32,
+              ),
+            ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: const Color(0xffF5F7FA),
-                  ),
-                  height: 158,
-                  child: Container(
-                    width: 200,
-                    height: 100,
-                    child: Image.network(drug?.imageUrl ?? ''),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  drug?.name ?? '',
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "${drug?.price ?? ''} сум",
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    Container(
-                      width: 70,
-                      height: 24,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                          bottomLeft: Radius.circular(15),
-                        ),
-                        color: Color(0xffFFC000),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "${drug?.quantity ?? ''}/гр",
-                          style: const TextStyle(
-                              fontSize: 16, color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+          onDismissed: (direction) {
+            if (direction == DismissDirection.startToEnd) {
+              callDelete(drug.id);
+            }
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 5,
+                    spreadRadius: 2)
               ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: const Color(0xffF5F7FA),
+                    ),
+                    height: 158,
+                    child: Container(
+                      width: 200,
+                      height: 100,
+                      child: Image.network(drug?.imageUrl ?? ''),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    drug?.name ?? '',
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "${drug?.price ?? ''} сум",
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      Container(
+                        width: 70,
+                        height: 24,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            bottomLeft: Radius.circular(15),
+                          ),
+                          color: Color(0xffFFC000),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "${drug?.quantity ?? ''}/гр",
+                            style: const TextStyle(
+                                fontSize: 16, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
   }
+
+  void callDelete(num? id) async {
+    String url =
+        "https://pharmacy-app-management.herokuapp.com/api/drugs/${id}";
+
+    var response = await http.delete(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('SUCCESS'),
+              content: Text(response.body.toString()),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      Navigator.pop(context);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (_) => Home_Page()),
+                          ModalRoute.withName("/"));
+                    });
+                  },
+                  child: Text("OK"),
+                )
+              ],
+            );
+          });
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('ERROR'),
+              content: Text(response.body.toString()),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("OK"),
+                )
+              ],
+            );
+          });
+    }
+  }
+
+  // void showDeleteDialog(num? id) {
+  //   showDialog(
+  //       context: context,
+  //       builder: (context) {
+  //         return AlertDialog(
+  //           title: Text("Delete ??"),
+  //           content: Text("Rostdan ham o'chirmoqchimisiz ?"),
+  //           actions: [
+  //             TextButton(
+  //                 onPressed: () {
+  //                   setState(() {
+  //                     Navigator.pop(context);
+  //                   });
+  //                 },
+  //                 child: Text("No")),
+  //             TextButton(
+  //                 onPressed: () {
+  //                   getData();
+  //                   Navigator.pop(context);
+  //                   callDelete(id);
+  //                 },
+  //                 child: Text("Yes")),
+  //           ],
+  //         );
+  //       });
+  // }
 }

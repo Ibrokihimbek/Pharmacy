@@ -1,3 +1,4 @@
+import 'package:drugs/screens/onboarding_page.dart';
 import 'package:drugs/utils/images.dart';
 import 'package:flutter/material.dart';
 
@@ -16,10 +17,10 @@ class _Splash_PageState extends State<Splash_Page> {
     super.initState();
     Future.delayed(
       const Duration(seconds: 3),
-      () => Navigator.push(
+      () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Home_Page(),
+          builder: (context) => OnboardinPage(),
         ),
       ),
     );
