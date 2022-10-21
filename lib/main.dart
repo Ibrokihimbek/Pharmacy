@@ -3,7 +3,11 @@ import 'package:drugs/screens/cart_page.dart';
 import 'package:drugs/screens/splash_page.dart';
 import 'package:flutter/material.dart';
 
+import 'local_data/storage_repository.dart';
+
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  StorageRepository.getInstance();
   runApp(const MyApp());
 }
 
@@ -22,4 +26,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

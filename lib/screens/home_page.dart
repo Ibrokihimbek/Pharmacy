@@ -155,7 +155,9 @@ class _Home_PageState extends State<Home_Page> {
                   Text(
                     drug?.name ?? '',
                     style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.w600),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Row(

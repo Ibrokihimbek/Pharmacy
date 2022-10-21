@@ -1,6 +1,8 @@
+import 'package:drugs/screens/admin_or_home.dart';
 import 'package:drugs/screens/onboarding_page.dart';
 import 'package:drugs/utils/images.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_page.dart';
 
@@ -12,18 +14,33 @@ class Splash_Page extends StatefulWidget {
 }
 
 class _Splash_PageState extends State<Splash_Page> {
+  bool isLog = false;
+
+  Future<bool> isLoggedIn() async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    isLog = _pref.getBool("isLoggedIn") ?? false;
+    return _pref.getBool("isLoggedIn") ?? false;
+  }
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-      const Duration(seconds: 3),
-      () => Navigator.pushReplacement(
+
+    isLoggedIn();
+    goNext();
+  }
+
+  void goNext() {
+    Future.delayed(Duration(seconds: 3)).then((value) {
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => OnboardinPage(),
+          builder: (_) {
+            return isLog ? AdiminOrHomePage() : OnboardinPage();
+          },
         ),
-      ),
-    );
+      );
+    });
   }
 
   @override

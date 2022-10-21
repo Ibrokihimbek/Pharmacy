@@ -3,6 +3,7 @@ import 'package:drugs/screens/admin_or_home.dart';
 import 'package:drugs/screens/home_page.dart';
 import 'package:drugs/utils/images.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardinPage extends StatefulWidget {
   const OnboardinPage({super.key});
@@ -52,12 +53,7 @@ class _OnboardinPageState extends State<OnboardinPage> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const AdiminOrHomePage(),
-                        ),
-                      );
+                      saveLogin(context);
                     },
                     child: Text(
                       'Skip',
@@ -75,12 +71,7 @@ class _OnboardinPageState extends State<OnboardinPage> {
                       }
                       setState(() {
                         if (currentIndex == 2) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const AdiminOrHomePage(),
-                            ),
-                          );
+                          saveLogin(context);
                         }
 
                         pageController.nextPage(
@@ -165,6 +156,18 @@ class _OnboardinPageState extends State<OnboardinPage> {
         separatorBuilder: (BuildContext context, int index) {
           return const SizedBox(width: 4);
         },
+      ),
+    );
+  }
+
+  void saveLogin(context) async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    _pref.setBool("isLoggedIn", true);
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AdiminOrHomePage(),
       ),
     );
   }
