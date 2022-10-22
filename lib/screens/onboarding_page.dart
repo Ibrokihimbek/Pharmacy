@@ -1,6 +1,7 @@
 import 'package:drugs/models/drugmodels/onboarding_model.dart';
 import 'package:drugs/screens/admin_or_home.dart';
 import 'package:drugs/screens/home_page.dart';
+import 'package:drugs/screens/welcome_page.dart';
 import 'package:drugs/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -167,7 +168,7 @@ class _OnboardinPageState extends State<OnboardinPage> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => AdiminOrHomePage(),
+        builder: (context) => WelcomePage(),
       ),
     );
   }
