@@ -1,3 +1,4 @@
+import 'package:drugs/screens/login_page.dart';
 import 'package:drugs/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -67,7 +68,14 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
                 const SizedBox(height: 16),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const LoginPage(),
+                      ),
+                    );
+                  },
                   child: Text(
                     'Login',
                     style: TextStyle(

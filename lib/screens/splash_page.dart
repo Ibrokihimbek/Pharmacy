@@ -1,4 +1,5 @@
 import 'package:drugs/screens/admin_or_home.dart';
+import 'package:drugs/screens/login_page.dart';
 import 'package:drugs/screens/onboarding_page.dart';
 import 'package:drugs/utils/images.dart';
 import 'package:flutter/material.dart';
@@ -31,16 +32,18 @@ class _Splash_PageState extends State<Splash_Page> {
   }
 
   void goNext() {
-    Future.delayed(Duration(seconds: 3)).then((value) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) {
-            return isLog ? AdiminOrHomePage() : OnboardinPage();
-          },
-        ),
-      );
-    });
+    Future.delayed(Duration(seconds: 3)).then(
+      (value) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) {
+              return isLog ? LoginPage() : OnboardinPage();
+            },
+          ),
+        );
+      },
+    );
   }
 
   @override

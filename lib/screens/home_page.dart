@@ -9,7 +9,8 @@ import 'package:http/http.dart';
 import '../models/drugmodels/drug_model.dart';
 
 class Home_Page extends StatefulWidget {
-  const Home_Page({super.key});
+  String? username;
+  Home_Page({super.key, this.username});
 
   @override
   State<Home_Page> createState() => _Home_PageState();
@@ -56,36 +57,54 @@ class _Home_PageState extends State<Home_Page> {
           ),
         ),
       ),
-      body: FutureBuilder<List<DrugsModel>?>(
-        future: getResult,
-        builder:
-            (BuildContext context, AsyncSnapshot<List<DrugsModel>?> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return Center(child: Text(snapshot.error.toString()));
-          }
-          if (snapshot.hasData) {
-            List<DrugsModel?>? drug = snapshot.data;
-            return Container(
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                itemCount: drug?.length ?? 0,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 0.8,
-                  crossAxisCount: 2,
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: FutureBuilder<List<DrugsModel>?>(
+          future: getResult,
+          builder: (BuildContext context,
+              AsyncSnapshot<List<DrugsModel>?> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return Center(child: Text(snapshot.error.toString()));
+            }
+            if (snapshot.hasData) {
+              List<DrugsModel?>? drug = snapshot.data;
+              return Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Hi, ${widget.username}',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 22),
+                    ),
+                    const SizedBox(height: 30),
+                    Container(
+                      child: GridView.builder(
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        itemCount: drug?.length ?? 0,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          childAspectRatio: 0.7,
+                          crossAxisCount: 2,
+                        ),
+                        itemBuilder: (context, index) {
+                          return ValyutaWidget(drug?[index]);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-                itemBuilder: (context, index) {
-                  return ValyutaWidget(drug?[index]);
-                },
-              ),
-            );
-          }
-          return Container();
-        },
+              );
+            }
+            return Container();
+          },
+        ),
       ),
     );
   }
@@ -120,7 +139,7 @@ class _Home_PageState extends State<Home_Page> {
           ),
           onDismissed: (direction) {
             if (direction == DismissDirection.startToEnd) {
-              callDelete(drug.id);
+              showDeleteDialog(drug.id);
             }
           },
           child: Container(
@@ -134,38 +153,44 @@ class _Home_PageState extends State<Home_Page> {
                     spreadRadius: 2)
               ],
             ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: const Color(0xffF5F7FA),
-                    ),
-                    height: 158,
-                    child: Container(
-                      width: 200,
-                      height: 100,
-                      child: Image.network(drug?.imageUrl ?? ''),
-                    ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: const Color(0xffF5F7FA),
                   ),
-                  const SizedBox(height: 8),
-                  Text(
+                  height: 158,
+                  child: Container(
+                    width: 200,
+                    height: 100,
+                    child: Image.network(drug?.imageUrl ?? ''),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Padding(
+                  padding: const EdgeInsets.only(left: 12),
+                  child: Text(
                     drug?.name ?? '',
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  Row(
+                ),
+                const SizedBox(height: 8),
+                Padding(
+                  padding: const EdgeInsets.only(left: 12),
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "${drug?.price ?? ''} сум",
-                        style: const TextStyle(fontSize: 16),
+                      Container(
+                        width: 80,
+                        child: Text(
+                          "${drug?.price ?? ''} сум",
+                          style: const TextStyle(fontSize: 16),
+                        ),
                       ),
                       Container(
                         width: 70,
@@ -187,8 +212,8 @@ class _Home_PageState extends State<Home_Page> {
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -216,7 +241,11 @@ class _Home_PageState extends State<Home_Page> {
                       Navigator.pop(context);
                       Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (_) => Home_Page()),
+                          MaterialPageRoute(
+                            builder: (_) => Home_Page(
+                              username: widget.username,
+                            ),
+                          ),
                           ModalRoute.withName("/"));
                     });
                   },
@@ -245,30 +274,30 @@ class _Home_PageState extends State<Home_Page> {
     }
   }
 
-  // void showDeleteDialog(num? id) {
-  //   showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         return AlertDialog(
-  //           title: Text("Delete ??"),
-  //           content: Text("Rostdan ham o'chirmoqchimisiz ?"),
-  //           actions: [
-  //             TextButton(
-  //                 onPressed: () {
-  //                   setState(() {
-  //                     Navigator.pop(context);
-  //                   });
-  //                 },
-  //                 child: Text("No")),
-  //             TextButton(
-  //                 onPressed: () {
-  //                   getData();
-  //                   Navigator.pop(context);
-  //                   callDelete(id);
-  //                 },
-  //                 child: Text("Yes")),
-  //           ],
-  //         );
-  //       });
-  // }
+  void showDeleteDialog(num? id) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Delete ??"),
+            content: Text("Rostdan ham o'chirmoqchimisiz ?"),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    setState(() {
+                      Navigator.pop(context);
+                    });
+                  },
+                  child: Text("No")),
+              TextButton(
+                  onPressed: () {
+                    getData();
+                    Navigator.pop(context);
+                    callDelete(id);
+                  },
+                  child: Text("Yes")),
+            ],
+          );
+        });
+  }
 }

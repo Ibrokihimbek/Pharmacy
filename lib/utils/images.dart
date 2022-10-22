@@ -6,4 +6,8 @@ class MyImages {
   static const image_splash5 = 'assets/images/splash5.png';
   static const image_facebook = 'assets/images/facebook.png';
   static const image_google = 'assets/images/google.png';
+  static const image_person = 'assets/images/person.png';
+  static const image_password = 'assets/images/password.png';
+  static const image_success = 'assets/images/success.png';
+
 }
