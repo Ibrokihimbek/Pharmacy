@@ -279,8 +279,8 @@ class _Home_PageState extends State<Home_Page> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("Delete ??"),
-            content: Text("Rostdan ham o'chirmoqchimisiz ?"),
+            title: const Text("Delete ??"),
+            content: const Text("Rostdan ham o'chirmoqchimisiz ?"),
             actions: [
               TextButton(
                   onPressed: () {
@@ -288,14 +288,14 @@ class _Home_PageState extends State<Home_Page> {
                       Navigator.pop(context);
                     });
                   },
-                  child: Text("No")),
+                  child: const Text("No")),
               TextButton(
                   onPressed: () {
                     getData();
                     Navigator.pop(context);
                     callDelete(id);
                   },
-                  child: Text("Yes")),
+                  child: const Text("Yes")),
             ],
           );
         });

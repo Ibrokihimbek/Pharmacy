@@ -123,9 +123,10 @@ class _OnboardinPageState extends State<OnboardinPage> {
             child: Text(
               onboard.content,
               style: TextStyle(
-                  fontWeight: FontWeight.w300,
-                  fontSize: 16,
-                  color: const Color(0xff090F47).withOpacity(0.45)),
+                fontWeight: FontWeight.w300,
+                fontSize: 16,
+                color: const Color(0xff090F47).withOpacity(0.45),
+              ),
             ),
           ),
         ),

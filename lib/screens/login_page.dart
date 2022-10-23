@@ -27,12 +27,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 30),
-                const Icon(
-                  Icons.arrow_back,
-                  size: 28,
-                ),
-                const SizedBox(height: 21),
+                const SizedBox(height: 60),
                 const Text(
                   'Welcome Back!',
                   style: TextStyle(
@@ -149,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (_) => CreateAccauntPage(),

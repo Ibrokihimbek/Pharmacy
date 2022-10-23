@@ -25,9 +25,14 @@ class _SuccessPageState extends State<SuccessPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 30),
-                const Icon(
-                  Icons.arrow_back,
-                  size: 28,
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Icon(
+                    Icons.arrow_back,
+                    size: 28,
+                  ),
                 ),
                 const SizedBox(height: 100),
                 Center(

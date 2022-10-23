@@ -31,9 +31,14 @@ class _CreateAccauntPageState extends State<CreateAccauntPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 30),
-                const Icon(
-                  Icons.arrow_back,
-                  size: 28,
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Icon(
+                    Icons.arrow_back,
+                    size: 28,
+                  ),
                 ),
                 const SizedBox(height: 21),
                 const Text(
@@ -60,7 +65,7 @@ class _CreateAccauntPageState extends State<CreateAccauntPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (_) => const LoginPage(),
@@ -119,7 +124,7 @@ class _CreateAccauntPageState extends State<CreateAccauntPage> {
               }
             },
             textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.number,
+            keyboardType: TextInputType.phone,
             obscureText: false,
             decoration: InputDecoration(
               hintText: 'Mobile Number',

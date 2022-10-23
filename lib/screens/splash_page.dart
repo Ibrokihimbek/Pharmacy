@@ -38,7 +38,7 @@ class _Splash_PageState extends State<Splash_Page> {
           context,
           MaterialPageRoute(
             builder: (_) {
-              return isLog ? LoginPage() : OnboardinPage();
+              return isLog ? AdiminOrHomePage(username: '') : OnboardinPage();
             },
           ),
         );
@@ -57,7 +57,6 @@ class _Splash_PageState extends State<Splash_Page> {
             image: DecorationImage(
                 image: AssetImage(MyImages.image_splash), fit: BoxFit.cover),
           ),
-          // color: Colors.amber,
         ),
       ),
     );

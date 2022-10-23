@@ -52,9 +52,14 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 30),
-                const Icon(
-                  Icons.arrow_back,
-                  size: 28,
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Icon(
+                    Icons.arrow_back,
+                    size: 28,
+                  ),
                 ),
                 const SizedBox(height: 21),
                 const Text(
@@ -122,8 +127,8 @@ ${widget.phoneNumber}''',
                 return "Enter the password sent to your phone number";
               }
             },
-            textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.text,
+            textInputAction: TextInputAction.done,
+            keyboardType: TextInputType.number,
             obscureText: false,
             decoration: InputDecoration(
               hintText: '0  0  0  0  0  0',
@@ -143,8 +148,7 @@ ${widget.phoneNumber}''',
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (_) =>
-                          SuccessPage(username: widget.username)),
+                      builder: (_) => SuccessPage(username: widget.username)),
                 );
               }
             },
