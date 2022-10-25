@@ -10,11 +10,9 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class VerifyOtpPage extends StatefulWidget {
-  String username;
   String phoneNumber;
   VerifyOtpPage({
     super.key,
-    required this.username,
     required this.phoneNumber,
   });
 
@@ -148,7 +146,7 @@ ${widget.phoneNumber}''',
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (_) => SuccessPage(username: widget.username)),
+                      builder: (_) => SuccessPage()),
                 );
               }
             },

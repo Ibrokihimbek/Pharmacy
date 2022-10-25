@@ -5,8 +5,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class SuccessPage extends StatefulWidget {
-  String username;
-  SuccessPage({super.key, required this.username});
+  SuccessPage({super.key});
 
   @override
   State<SuccessPage> createState() => _SuccessPageState();
@@ -77,8 +76,7 @@ number has been verified. You can
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) =>
-                            AdiminOrHomePage(username: widget.username),
+                        builder: (_) => AdiminOrHomePage(),
                       ),
                     );
                   },

@@ -30,9 +30,19 @@ class StorageRepository {
     return _sharedPreferences!.setBool(key, value);
   }
 
+  static Future<bool>? setString(String key, String val) {
+    if (_sharedPreferences == null) return null;
+    return _sharedPreferences!.setString(key, val);
+  }
+
   static int getInt(String key) {
     if (_sharedPreferences == null) return 0;
     return _sharedPreferences!.getInt(key) ?? 0;
+  }
+
+  static String getStringt(String key) {
+    if (_sharedPreferences == null) return '';
+    return _sharedPreferences!.getString(key) ?? '';
   }
 
   static bool getBool(String key) {

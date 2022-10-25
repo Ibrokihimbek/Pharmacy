@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:drugs/local_data/storage_repository.dart';
 import 'package:drugs/screens/cart_page.dart';
 import 'package:drugs/screens/drug_info.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,7 @@ import 'package:http/http.dart';
 import '../models/drugmodels/drug_model.dart';
 
 class Home_Page extends StatefulWidget {
-  String? username;
-  Home_Page({super.key, this.username});
+  Home_Page({super.key});
 
   @override
   State<Home_Page> createState() => _Home_PageState();
@@ -36,12 +36,12 @@ class _Home_PageState extends State<Home_Page> {
   @override
   void initState() {
     super.initState();
-
     getResult = getData();
   }
 
   @override
   Widget build(BuildContext context) {
+    String name = StorageRepository.getStringt('name');
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -77,7 +77,7 @@ class _Home_PageState extends State<Home_Page> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Hi, ${widget.username}',
+                      'Hi, ${name}',
                       style:
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 22),
                     ),
@@ -242,9 +242,7 @@ class _Home_PageState extends State<Home_Page> {
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => Home_Page(
-                              username: widget.username,
-                            ),
+                            builder: (_) => Home_Page(),
                           ),
                           ModalRoute.withName("/"));
                     });

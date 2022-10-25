@@ -8,8 +8,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AdiminOrHomePage extends StatefulWidget {
-  String username;
-  AdiminOrHomePage({super.key, required this.username});
+  AdiminOrHomePage({super.key});
 
   @override
   State<AdiminOrHomePage> createState() => _AdiminOrHomePageState();
@@ -30,7 +29,7 @@ class _AdiminOrHomePageState extends State<AdiminOrHomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => Home_Page(username: widget.username,),
+                        builder: (_) => Home_Page(),
                       ),
                     );
                   },

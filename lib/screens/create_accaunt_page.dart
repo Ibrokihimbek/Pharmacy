@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import '../local_data/storage_repository.dart';
+
 class CreateAccauntPage extends StatefulWidget {
   const CreateAccauntPage({super.key});
 
@@ -191,11 +193,11 @@ class _CreateAccauntPageState extends State<CreateAccauntPage> {
             onTap: () {
               if (_formKey.currentState!.validate()) {
                 FocusManager.instance.primaryFocus?.unfocus();
+                StorageRepository.setString('name', myController.text);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (_) => VerifyOtpPage(
-                      username: myController.text,
                       phoneNumber: myControllerFoneNumber.text,
                     ),
                   ),

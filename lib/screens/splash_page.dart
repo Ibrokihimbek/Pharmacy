@@ -38,7 +38,7 @@ class _Splash_PageState extends State<Splash_Page> {
           context,
           MaterialPageRoute(
             builder: (_) {
-              return isLog ? AdiminOrHomePage(username: '') : OnboardinPage();
+              return isLog ? AdiminOrHomePage() : OnboardinPage();
             },
           ),
         );

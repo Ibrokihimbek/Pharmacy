@@ -1,3 +1,4 @@
+import 'package:drugs/local_data/storage_repository.dart';
 import 'package:drugs/screens/admin_or_home.dart';
 import 'package:drugs/screens/create_accaunt_page.dart';
 import 'package:drugs/screens/home_page.dart';
@@ -99,11 +100,13 @@ class _LoginPageState extends State<LoginPage> {
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
                             FocusManager.instance.primaryFocus?.unfocus();
+                            StorageRepository.setString(
+                                'name', myController.text);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (_) => AdiminOrHomePage(
-                                      username: myController.text)),
+                                builder: (_) => AdiminOrHomePage(),
+                              ),
                             );
                           }
                         },
