@@ -102,12 +102,12 @@ class _LoginPageState extends State<LoginPage> {
                             FocusManager.instance.primaryFocus?.unfocus();
                             StorageRepository.setString(
                                 'name', myController.text);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => AdiminOrHomePage(),
-                              ),
-                            );
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => AdiminOrHomePage(),
+                                ),
+                                (route) => false);
                           }
                         },
                         child: Container(

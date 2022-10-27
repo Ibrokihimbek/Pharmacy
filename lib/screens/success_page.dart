@@ -73,12 +73,12 @@ number has been verified. You can
                 InkWell(
                   borderRadius: BorderRadius.circular(56),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => AdiminOrHomePage(),
-                      ),
-                    );
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => AdiminOrHomePage(),
+                        ),
+                        (route) => false);
                   },
                   child: Container(
                     width: double.infinity,

@@ -69,7 +69,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 const SizedBox(height: 16),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (_) => const LoginPage(),
